@@ -18,12 +18,13 @@ public class UserProfileBusinessService {
     //Checks user sign in status based on accessToken and also validates the userId of the user whose details we wish to see
     public UserEntity getUser(final String userUuid, final String authorizationToken) throws AuthorizationFailedException, UserNotFoundException {
         UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authorizationToken);
+        if (userDao.getUserByUuid(userUuid)==null) {
+            throw new UserNotFoundException("USR-001", "User with entered uuid does not exist");
+        }
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
         } else if (userAuthTokenEntity.getLogoutAt()!=null) {
             throw new AuthorizationFailedException("ATHR-002","User is signed out.Sign in first to get user details");
-        } else if (userDao.getUserByUuid(userUuid)==null) {
-            throw new UserNotFoundException("USR-001","User with entered uuid does not exist");
         } else {
             return userDao.getUserByUuid(userUuid);
         }

@@ -64,9 +64,9 @@ public class UserController {
         return new ResponseEntity<SignupUserResponse>(userResponse, HttpStatus.CREATED);
    }
 
-   //login method is used to perform a Basic authorization when the user tries to signin for the first time
+   //signin method is used to perform a Basic authorization when the user tries to signin for the first time
    @RequestMapping(method = RequestMethod.POST, path = "/user/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-        public ResponseEntity<SigninResponse> login(@RequestHeader("authentication") final String authentication) throws AuthenticationFailedException {
+        public ResponseEntity<SigninResponse> signin(@RequestHeader("authentication") final String authentication) throws AuthenticationFailedException {
           byte[] decode = Base64.getDecoder().decode(authentication.split("Basic ")[1]);
           String decodedText = new String(decode);
           String[] decodedArray = decodedText.split(":");
@@ -81,9 +81,9 @@ public class UserController {
           return new ResponseEntity<SigninResponse>(  signinResponse, headers, HttpStatus.OK);
    }
 
-   //logout method is used to signout a signedin user from the application
+   //signout method is used to signout a signedin user from the application
    @RequestMapping(method=RequestMethod.POST,path="/user/signout",produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-   public ResponseEntity<SignoutResponse> logout(@RequestHeader("accessToken") final String accessToken)throws SignOutRestrictedException {
+   public ResponseEntity<SignoutResponse> signout(@RequestHeader("accessToken") final String accessToken)throws SignOutRestrictedException {
        String [] bearerToken = accessToken.split("Bearer ");
        final UserAuthTokenEntity userAuthTokenEntity=signoutBusinessService.verifyAuthToken(bearerToken[1]);
 

@@ -19,9 +19,9 @@ public class CommonController {
     @Autowired
     UserProfileBusinessService userProfileBusinessService;
 
-    //getUser method takes userId to retrieve user and accessToken for doing Bearer Authorization and returns the user details for the corresponding user
+    //userProfile method takes userId to retrieve user and accessToken for doing Bearer Authorization and returns the user details for the corresponding user
     @RequestMapping(method = RequestMethod.GET, path = "/userprofile/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserDetailsResponse> getUser(@PathVariable("userId") final String userUuid,
+    public ResponseEntity<UserDetailsResponse> userProfile(@PathVariable("userId") final String userUuid,
                                                        @RequestHeader("accessToken") final String accessToken) throws AuthorizationFailedException, UserNotFoundException {
         String [] bearerToken = accessToken.split("Bearer ");
         final UserEntity userEntity = userProfileBusinessService.getUser(userUuid, bearerToken[1]);
