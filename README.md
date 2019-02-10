@@ -31,4 +31,5 @@ AnswerController
 3. deleteAnswer - "/answer/delete/{answerId}"
 4. getAllAnswersToQuestion - "answer/all/{questionId}"
 ---------------------------------------------------------
-
+*The database password have been set as the same by all group members in application.yaml and localhost.properties file
+*Seperate business services have been implemented for all the API End Points to make sure all exceptions are checked for
